@@ -1,13 +1,13 @@
+
 if 1
 include mylib1.lib
 endif
 
 .model small
 .data
-aa  DB  30 
-bb  DB  15 
-cc  DB  13 
-sum DB  00
+aa  DB  100
+bb  DB  32  
+product DW 0000
 
 .stack 0100
 
@@ -17,15 +17,11 @@ MOV AX, @data
 MOV DS, AX
 MOV AL, aa
 MOV BL, bb
-MOV CL, cc
-ADD AL, CL 
-SUB AL, BL
-SUB AL, 05
-MOV sum, AL
+MUL BL
+Mov product, AX
 
-mov bh, 00
-mov bl, sum
-printd 
+MOV BX, product
+printd
 
 MOV AX, 4C00h
 INT 21h

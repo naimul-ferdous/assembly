@@ -4,10 +4,10 @@ endif
 
 .model small
 .data
-aa DD 165356
-bb DW 40000
-quo DW 0000
-rem DW 0000
+aa DW 320
+bb DB 100
+quo DB 00
+rem DB 00
 
 
 .stack 0100
@@ -16,17 +16,18 @@ rem DW 0000
 main proc
 MOV AX, @data
 MOV DS, AX
-MOV AX, word ptr[aa+0]
-MOV DX, word ptr[aa+2]
-MOV CX, bb
-DIV CX
-MOV quo, AX
-MOV rem, DX
+MOV AX, aa
+MOV DL, bb
+DIV DL
+MOV quo, AL
+MOV rem, AH
 
-MOV BX, quo
+MOV BH, 00
+MOV BL, quo
 printd
 
-MOV BX, rem
+MOV BH, 00
+MOV BL, rem
 printd
 
 MOV AX, 4c00h

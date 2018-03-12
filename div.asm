@@ -3,34 +3,35 @@ include mylib1.lib
 endif
 
 .model small
-.data
-aa DW 320
-bb DB 100
-quo DB 00
-rem DB 00
 
-.stack 0100
+.Data
+aa  Dw  320
+bb  db  100
+quo  db  00
+rem  db  00
+
+.Stack 0100
 
 .code
 main proc
-MOV AX, @data
-MOV DS, AX
-MOV AX, aa
-MOV BL, bb
-DIV BL
-MOV quo, AL
-MOV rem, AH
 
-MOV BH, 00
-MOV BL, quo
+MOV AX,@data
+mov ds,AX
+
+mov AX,aa
+MOV CL,bb
+div cl
+mov quo,al
+mov rem,ah
+mov bh,00
+mov bl,quo
+printd
+mov bh,00
+mov bl,rem
 printd
 
-MOV BH, 00
-MOV BL, rem
-printd
-
-MOV AX, 4c00h
-int 21h
+MOV AX,4c00h
+INT 21h
 printfd
 main ENDP
 END main
