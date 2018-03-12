@@ -1,0 +1,138 @@
+printd macro
+	call printdf
+	endm
+
+
+printfd macro 
+printdf proc near
+	mov cx, bx
+	mov dh, 00
+	mov dl, 30h
+l1:	cmp cx, 10000
+	jb l2
+	mov dh, 01
+	inc dl
+	sub cx, 10000
+	jmp l1
+
+l2:	cmp dh, 00
+	jz l3
+	mov ah, 02
+	int 21h
+	mov dl, 30h 
+l3:	cmp cx, 1000
+	jb l4
+	mov dh, 01
+	inc dl
+	sub cx, 1000
+	jmp l3
+
+l4:	cmp dh, 00
+	jz l5
+	mov ah, 02
+	int 21h
+ 
+	mov dl, 30h 
+l5:	cmp cx, 100
+	jb l6
+	mov dh, 01
+	inc dl
+	sub cx, 100
+	jmp l5
+
+l6:	cmp dh, 00
+	jz l7
+	mov ah, 02
+	int 21h
+ 
+	mov dl, 30h 
+l7:	cmp cx, 10
+	jb l8
+	mov dh, 01
+	inc dl
+	sub cx, 10
+	jmp l7
+
+l8:	cmp dh, 00
+	jz l9
+	mov ah, 02
+	int 21h
+
+L9:	mov dl, 30h
+	add dl, cl
+	mov ah, 02
+	int 21h
+
+	mov ah, 02
+	mov dl, 'd'
+	int 21h
+
+printdf  endp
+	endm
+
+printh macro
+	call printhf
+	endm
+
+printfh	macro bx
+printhf proc near
+	mov dx, bx
+	and dh, 0f0h
+	mov cx, 0004
+	shr dh, cl
+	cmp dh,09
+	ja AtoZ1
+	or dh, 30h
+	jmp disp1
+AtoZ1:
+	add dh, 37h
+disp1:
+	mov ah, 02
+	mov dl, dh
+	int 21h
+
+	mov dx, bx
+	and dh, 0fh
+	cmp dh,09
+	ja AtoZ2
+	or dh, 30h
+	jmp disp2
+AtoZ2:
+	add dh, 37h
+disp2:
+	mov ah, 02
+	mov dl, dh
+	int 21h
+
+	mov dx, bx
+	and dl, 0f0h
+	mov cx, 0004
+	shr dl, cl
+	cmp dl,09
+	ja AtoZ3
+	or dl, 30h
+	jmp disp3
+AtoZ3:
+	add dl, 37h
+disp3:
+	mov ah, 02
+	int 21h
+
+	mov dx, bx
+	and dl, 0fh
+	cmp dl,09
+	ja AtoZ4
+	or dl, 30h
+	jmp disp4
+AtoZ4:
+	add dl, 37h
+disp4:
+	mov ah, 02
+	int 21h
+
+	mov ah, 02
+	mov dl, 'h'
+	int 21h
+printhf	endp
+	endm
+

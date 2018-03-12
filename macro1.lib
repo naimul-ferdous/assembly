@@ -1,0 +1,22 @@
+getchar macro ch 
+mov ah,01
+int 21h
+mov ch,al
+endm
+
+putchar Macro ch1
+mov ah,02
+mov dl,ch1
+int 21h
+endm
+
+putstr Macro str
+mov ah,09
+mov dx,offset str
+int 21h
+endm
+
+endprog Macro
+mov ax,4c00h
+int 21h
+endm

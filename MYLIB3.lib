@@ -1,0 +1,245 @@
+printd8   MACRO   chars     
+        IRP     C8, <chars >
+	
+	IRPC    C8d, C8
+	mov ah, 02
+	mov dl, '&C8d'
+	int 21h
+	ENDM
+
+	mov ah, 02
+	mov dl, '='
+	int 21h
+
+        mov     bh, 00
+        mov     bl, C8
+        call printdf
+        ENDM
+	mov ah, 02
+	mov dl, 0ah
+	int 21h	
+endm
+
+printd16   MACRO   chars     
+        IRP     C16, <chars >
+	IRPC    C16d, C16
+	mov ah, 02
+	mov dl, '&C16d'
+	int 21h
+	ENDM
+
+	mov ah, 02
+	mov dl, '='
+	int 21h
+
+        mov     bx, C16
+        call printdf
+        ENDM
+	mov ah, 02
+	mov dl, 0ah
+	int 21h	
+endm
+
+printh8   MACRO   chars     
+        IRP     h8, <chars >
+	IRPC    C9h, h8
+	mov ah, 02
+	mov dl, '&C9h'
+	int 21h
+	ENDM
+
+	mov ah, 02
+	mov dl, '='
+	int 21h
+        mov     bh, 00
+        mov     bl, h8
+        call printhf
+        ENDM
+	mov ah, 02
+	mov dl, 0ah
+	int 21h	
+endm
+
+printh16   MACRO   chars     
+        IRP     h16, <chars >
+	IRPC    C16h, h16
+	mov ah, 02
+	mov dl, '&C16h'
+	int 21h
+	ENDM
+
+	mov ah, 02
+	mov dl, '='
+	int 21h
+        mov     bx, h16
+        call printhf
+        ENDM
+	mov ah, 02
+	mov dl, 0ah
+	int 21h	
+endm
+
+printh32   MACRO   chars     
+        IRP     h32, <chars >
+	IRPC    C32h, h32
+	mov ah, 02
+	mov dl, '&C32h'
+	int 21h
+	ENDM
+
+	mov ah, 02
+	mov dl, '='
+	int 21h
+        mov     bx, word ptr [h32+2]
+        call printhf
+        mov     bx, word ptr [h32+0]
+        call printhf
+        ENDM
+	mov ah, 02
+	mov dl, 0ah
+	int 21h	
+endm
+
+
+printd  macro
+	call printdf
+	endm
+
+printfd macro 
+printdf proc near
+	mov cx, bx
+	mov dh, 00
+	mov dl, 30h
+l1:	cmp cx, 10000
+	jb l2
+	mov dh, 01
+	inc dl
+	sub cx, 10000
+	jmp l1
+
+l2:	cmp dh, 00
+	jz l3
+	mov ah, 02
+	int 21h
+	mov dl, 30h 
+l3:	cmp cx, 1000
+	jb l4
+	mov dh, 01
+	inc dl
+	sub cx, 1000
+	jmp l3
+
+l4:	cmp dh, 00
+	jz l5
+	mov ah, 02
+	int 21h
+ 
+	mov dl, 30h 
+l5:	cmp cx, 100
+	jb l6
+	mov dh, 01
+	inc dl
+	sub cx, 100
+	jmp l5
+
+l6:	cmp dh, 00
+	jz l7
+	mov ah, 02
+	int 21h
+ 
+	mov dl, 30h 
+l7:	cmp cx, 10
+	jb l8
+	mov dh, 01
+	inc dl
+	sub cx, 10
+	jmp l7
+
+l8:	cmp dh, 00
+	jz l9
+	mov ah, 02
+	int 21h
+
+L9:	mov dl, 30h
+	add dl, cl
+	mov ah, 02
+	int 21h
+
+	mov ah, 02
+	mov dl, ' '
+	int 21h
+
+	ret
+printdf  endp
+	endm
+
+printh macro
+	call printhf
+	endm
+
+printfh	macro 
+printhf proc near
+	mov dx, bx
+	and dh, 0f0h
+	mov cx, 0004
+	shr dh, cl
+	cmp dh,09
+	ja AtoZ1
+	or dh, 30h
+	jmp disp1
+AtoZ1:
+	add dh, 37h
+disp1:
+	mov ah, 02
+	mov dl, dh
+	int 21h
+
+	mov dx, bx
+	and dh, 0fh
+	cmp dh,09
+	ja AtoZ2
+	or dh, 30h
+	jmp disp2
+AtoZ2:
+	add dh, 37h
+disp2:
+	mov ah, 02
+	mov dl, dh
+	int 21h
+
+	mov dx, bx
+	and dl, 0f0h
+	mov cx, 0004
+	shr dl, cl
+	cmp dl,09
+	ja AtoZ3
+	or dl, 30h
+	jmp disp3
+AtoZ3:
+	add dl, 37h
+disp3:
+	mov ah, 02
+	int 21h
+
+	mov dx, bx
+	and dl, 0fh
+	cmp dl,09
+	ja AtoZ4
+	or dl, 30h
+	jmp disp4
+AtoZ4:
+	add dl, 37h
+disp4:
+	mov ah, 02
+	int 21h
+
+	mov ah, 02
+	mov dl, 'h'
+	int 21h
+	mov ah, 02
+	mov dl, ' '
+	int 21h
+	ret
+printhf	endp
+	endm
+
