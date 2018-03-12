@@ -1,10 +1,8 @@
-printd macro
-	call printdf
-	endm
 
 
-printfd macro 
-printdf proc near
+
+printd macro bx
+	local l1, l2, l3, l4, l5, l6, l7, l8, l9
 	mov cx, bx
 	mov dh, 00
 	mov dl, 30h
@@ -67,16 +65,12 @@ L9:	mov dl, 30h
 	mov dl, 'd'
 	int 21h
 
-printdf  endp
 	endm
 
-printh macro
-	call printhf
-	endm
 
-printfh	macro bx
-printhf proc near
-	mov dx, bx
+printh	macro num
+
+	mov dx, num
 	and dh, 0f0h
 	mov cx, 0004
 	shr dh, cl
@@ -91,7 +85,7 @@ disp1:
 	mov dl, dh
 	int 21h
 
-	mov dx, bx
+	mov dx, num
 	and dh, 0fh
 	cmp dh,09
 	ja AtoZ2
@@ -104,7 +98,7 @@ disp2:
 	mov dl, dh
 	int 21h
 
-	mov dx, bx
+	mov dx, num
 	and dl, 0f0h
 	mov cx, 0004
 	shr dl, cl
@@ -118,7 +112,7 @@ disp3:
 	mov ah, 02
 	int 21h
 
-	mov dx, bx
+	mov dx, num
 	and dl, 0fh
 	cmp dl,09
 	ja AtoZ4
@@ -133,6 +127,5 @@ disp4:
 	mov ah, 02
 	mov dl, 'h'
 	int 21h
-printhf	endp
 	endm
 
