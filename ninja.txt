@@ -1,0 +1,96 @@
+
+--->   ninja pendisk!   <---
+
+
+This ninja program is freeware and is happy to be included or 
+distributed by everyone interested in sharing this program.
+
+
+---> What does it do?
+
+It will automagically remove any pesky virulent file 
+found on usb pendisks that may threat your computer.
+
+Click on the tray icon and visit our webpage
+to tell us about new threats that should also
+be removed by this ninja.
+
+
+Nuno Brito (c) 2008
+http://nunobrito.eu
+
+--------------------------------
+
+[version]
+updated=2008-05-21
+program=1.5
+
+[options]
+no_minimize=0
+Disable_AutoPlay=1
+Auto_Clean=1
+evil_ninja=0
+
+
+[languages]
+en=How to get started?;Immunize;Plug your pendisk to the computer;If you're ready to protect your pendisk, click on the immunize button!;Exit;View configuration;Visit homepage;LAN Chat;Add to startup;Automatic Clean;Disable AutoPlay
+pt=Como começar?;Imunizar;Ligue a pendisk ao computador;Se estiver pronto para começar, clique no botão Imunizar!;Sair;Ver configuração;Visitar homepage;Chat;Adicionar ao arranque;Limpeza automática;Desactivar AutoPlay
+de=Wie geht es?;Immunisieren;Stecken Sie Ihren USB-Stick in den Computer;Zum Schutz Ihres USB-Sticks klicken Sie auf die Schaltfläche 'Immunisieren'!;Ende;Konfiguration anzeigen;Ninja Homepage;LAN Chat;Ninja in Autostart aufnehmen;Automatisches Immunisieren;AutoPlay deaktivieren	
+fr=Comment démarrer?;Vaccination;Branchez votre pendisk à l'ordinateur;Si vous êtes prêt à protéger vos pendisk, cliquez sur le bouton vacciner!;Sortie;Voir la configuration;Visitez la page d'accueil;LAN Chat;Ajouter au démarrage;Désactiver AutoPlay
+es=¿Por dónde empiezo?;Inmunizar;Conecte su pendisk a lo ordenador;Si está listo para proteger su pendisk, haga clic en el botón inmunizar!;Ver configuración;Visita la página principal;LAN Chat;Añadir a startup;Desactivar AutoPlay
+--------------------------------
+
+[attrib_initial]
+autorun.inf=-s -h -r
+
+[file_rename]
+autorun.inf-->autorun.inf.old.txt
+
+[file_delete]
+auto.exe
+autorun.ini
+autorun.pif
+autorun.vbs
+autorun.exe
+autorun.bat
+autorun.cmd
+autorun.hta
+avpo.exe
+Bha.dll.vbs
+ctfmon.exe
+copy.exe
+destrukto.vbs
+Fucker.vbs
+host.exe
+Heap41a
+killvbs.vbs
+host.exe
+imvo.exe
+Macromedia_Setup.exe
+mmc.exe
+msvcr71.dl
+ntde1ect.com
+nideiect.com
+ntdelect.com
+New Folder.exe
+oso.exe
+Ravmon.exe
+RavMonE.exe
+RVHost.exe
+spoclsv.exe
+soundmix.exe
+svchost.exe
+semo2X.exe
+tel.exe.vbs
+utdetect.com
+VBS_RESULOWS.A
+windows.scr
+
+[folder_delete]
+Recycled
+
+[folder_create]
+autorun.inf
+
+[attrib_finish]
+autorun.inf=+s +h +r
