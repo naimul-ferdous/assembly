@@ -1,38 +1,23 @@
-if 1
-include mylib1.lib
-endif
-mydata segment
+.model small
+.data
+aa  DB  25 
+bb  DB  07 
+cc  DB  05 
+sum  DB  00
 
-aa  db  05 
-ba  db  06 
-ca  db  07
-sa  db  ?
+.stack 0100
 
-mydata ends
-mystack segment
-db 100 dup(0)
-mystack ends
-mycode segment
-assume cs:mycode, ds:mydata, ss:mystack
-start:
-mov ax, seg mydata
-mov ds, ax
-mov ax, seg mystack
-mov ss, ax
-
-mov al, aa
-mov bl, ba
-mov cl, ca
-add al, bl
-sub al, cl
-mov sa, al
-
-mov ah, 00
-mov bx, ax
-printd 
-mov ax, 4c00h
-int 21h
-printfd
-
-mycode ends
-end start 
+.code
+main proc
+MOV AX, @data
+MOV DS, AX
+MOV AL, aa
+MOV BL, bb
+MOV CL, cc
+ADD  AL, BL 
+SUB   AL, CL
+MOV  sum, AL
+MOV AX, 4C00h
+INT 21h
+main ENDP
+END main

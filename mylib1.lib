@@ -2,7 +2,6 @@ printd macro
 	call printdf
 	endm
 
-
 printfd macro 
 printdf proc near
 	mov cx, bx
@@ -64,9 +63,10 @@ L9:	mov dl, 30h
 	int 21h
 
 	mov ah, 02
-	mov dl, 'd'
+	mov dl, ' '
 	int 21h
 
+	ret
 printdf  endp
 	endm
 
@@ -74,7 +74,7 @@ printh macro
 	call printhf
 	endm
 
-printfh	macro bx
+printfh	macro 
 printhf proc near
 	mov dx, bx
 	and dh, 0f0h
@@ -133,6 +133,8 @@ disp4:
 	mov ah, 02
 	mov dl, 'h'
 	int 21h
+
+	ret
 printhf	endp
 	endm
 
