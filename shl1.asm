@@ -4,10 +4,9 @@ endif
 
 .model small
 .data
-aa Dw 40
-bb DB 8
+aa  DW 40
+bb  DW 8
 sum DW 0000
-
 
 .stack 0100
 
@@ -17,13 +16,13 @@ MOV AX, @data
 MOV DS, AX
 MOV AX, aa
 MOV CL, 3
-SHL AX, CL 
+SHL AX, CL
 MOV sum, AX
 
 MOV BX, sum
 printd
 
-MOV AX, 4c00h
+MOV AX, 4C00h
 int 21h
 printfd
 main ENDP

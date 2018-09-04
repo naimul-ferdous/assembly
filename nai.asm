@@ -1,34 +1,43 @@
-disp MACRO MSG
-mov ah, 09
-mov dx, offset MSG
-int 21h
-ENDM
 
+disp Macro msg
+mov ah,09
+mov dx,offset msg 
+int 21h
+endm
+.model small
 .data
-Fname db "IUBAT.TXT",0
-Fname dw 0000h
-Ftype EQU 00
-msg1 db "file created",0Ah,"$"
-msg2 db "file not created",0Ah,"$"
-msg3 db "file close",0Ah,"$"
+Fname db "IUBAT.txt",0 
+Fhandle dw 0000h
+Ftype EQU 00 
+msg1 db "File creted",0ah,'$'
+msg2 db "File do not",0ah,'$'
+msg3 db "Fle is closed",0ah,'$'
 
-.create
-mov ah, 
-mov dx, offset Fname
-mov cx, Ftype
+.stack 0100
+.code
+main proc
+MOV AX, @data
+MOV DS, AX
+
+mov ah,5BH
+mov dx,offset Fname 
+mov cx,Ftype
 int 21h
-JC ERROR1
-mov Fhandle, ax
-disp msg1
 
-mov ah, 3Eh
-mov bx, Fhandle
+JC ERROR1 
+mov Fhandle,ax
+disp msg1
+mov ah,3Eh
+mov bx,Fhandle
 int 21h
 disp msg3
-JMP exit
+jmp exit
 
 ERROR1:
-disp msg2
-EXIT:
-mov ax, 4c00h
+disp msg2 
+
+exit:
+mov ax,4c00h
 int 21h
+main ENDP
+END main

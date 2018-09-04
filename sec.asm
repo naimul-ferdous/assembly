@@ -1,13 +1,12 @@
+
 .model small
-EXTRN msg2:byte,const:abs
-public dispm2
+EXTRN msg2:byte, const:abs
 
 .code
-
 dispm2 proc far
-mov ah,const
-mov dx,offset msg2
+mov ah, const
+mov dx, offset msg2
 int 21h
-ret
-dispm2 endp
-end dispm2
+RET
+dispm2 ENDP
+END dispm2

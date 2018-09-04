@@ -9,7 +9,6 @@ bb DW 40000
 quo DW 0000
 rem DW 0000
 
-
 .stack 0100
 
 .code

@@ -4,8 +4,7 @@ endif
 
 .model small
 .data
-sum db 00
-num1 db 10,23,35,55,65
+sum dw 0000
 
 .stack
 
@@ -13,18 +12,16 @@ num1 db 10,23,35,55,65
 main proc
 mov ax, @data
 mov ds, ax
-mov al, sum
-mov bx, offset num1
+mov bx, sum
 mov ch, 00
-mov cl, 05
-
+mov cl, 09
 back:
-add al, [bx]
-INC bx
+mov ax, 10
+mul cl
+add bx, ax
 loop back
-
-mov sum, al
-printd8 <sum>
+mov sum, bx
+printd16 <sum>
 
 mov ax, 4c00h
 int 21h
